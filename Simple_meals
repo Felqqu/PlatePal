@@ -4,6 +4,8 @@
 #define DAYS_IN_WEEK 7
 #define MAX_MEAL_NAME_LEN 50
 
+
+//Testikommentti
 // Structure to hold meal information
 typedef struct {
     char name[MAX_MEAL_NAME_LEN];
