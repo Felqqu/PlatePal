@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <string.h>
+
+#define DAYS_IN_WEEK 7
+#define MAX_MEAL_NAME_LEN 50
+
+// Structure to hold meal information
+typedef struct {
+    char name[MAX_MEAL_NAME_LEN];
+    float cost;
+} Meal;
+
+// Function to print the meal plan for the week
+void printMealPlan(Meal meals[][DAYS_IN_WEEK], int numMeals) {
+    printf("MEAL PLAN FOR THE WEEK:\n");
+    for (int i = 0; i < numMeals; i++) {
+        printf("MEAL %d:\n", i + 1);
+        for (int j = 0; j < DAYS_IN_WEEK; j++) {
+            printf("\t%s ($%.2f)\n", meals[i][j].name, meals[i][j].cost);
+        }
+    }
+}
+
+// Function to get the meal plan for the week
+void getMealPlan(Meal meals[][DAYS_IN_WEEK], int numMeals) {
+    printf("Enter the meal plan for the week:\n");
+    for (int i = 0; i < numMeals; i++) {
+        printf("MEAL %d:\n", i + 1);
+        for (int j = 0; j < DAYS_IN_WEEK; j++) {
+            printf("Enter the name of the meal for day %d: ", j + 1);
+            scanf("%s", meals[i][j].name);
+            printf("Enter the cost of the meal for day %d: ", j + 1);
+            scanf("%f", &meals[i][j].cost);
+        }
+    }
+}
+
+int main() {
+    // Define the number of meals
+    int numMeals = 3;
+
+    // Define the meal plan array
+    Meal mealPlan[numMeals][DAYS_IN_WEEK];
+
+    // Get the meal plan for the week
+    getMealPlan(mealPlan, numMeals);
+
+    // Print the meal plan for the week
+    printMealPlan(mealPlan, numMeals);
+
+    return 0;
+}
