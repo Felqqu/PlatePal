@@ -7,22 +7,22 @@
 #define MAX_RECIPES 10
 
 
-void print_shopping_list(int *shopping_list, int num_ingredients) {
+void printShoppingList(int *shoppingList, int numIngredients) {
     for (int i = 0; i < NUM_INGREDIENTS; i++) {
-        if (shopping_list[i] > 0) {
-            printf("%s: %d\n", INGREDIENT_NAMES[i], shopping_list[i]);
+        if (shoppingList[i] > 0) {
+            printf("%s: %d\n", INGREDIENT_NAMES[i], shoppingList[i]);
         }
     }
-    printf("Total number of ingredients: %d\n", num_ingredients);
+    printf("Total number of ingredients: %d\n", numIngredients);
 }
 
 int main() {
-    int shopping_list[NUM_INGREDIENTS] = {0};
-    int num_ingredients = 0;
-    int recipe_choice = 0;
+    int shoppingList[NUM_INGREDIENTS] = {0};
+    int numIngredients = 0;
+    int recipeChoice = 0;
     char choice;
-    int suggested_recipes[NUM_RECIPES] = {0};  // array to keep track of suggested recipes
-    int num_suggested = 0;  // number of suggested recipes so far
+    int suggestedRecipes[NUM_RECIPES] = {0};  // array to keep track of suggested recipes
+    int numSuggested = 0;  // number of suggested recipes so far
 
     printf("Welcome to PlatePal!\n");
 
@@ -34,10 +34,10 @@ int main() {
             printf("Okay, have a good day! Here are the needed ingredients:\n");
             printf("Ingredients:\n");
             for (int i = 0; i < NUM_INGREDIENTS; i++) {
-                if (RECIPES[recipe_choice].ingredients[i] > 0) {
-                    printf("%s: %d\n", INGREDIENT_NAMES[i], RECIPES[recipe_choice].ingredients[i]);
-                    shopping_list[i] += RECIPES[recipe_choice].ingredients[i];
-                    num_ingredients += RECIPES[recipe_choice].ingredients[i];
+                if (RECIPES[recipeChoice].ingredients[i] > 0) {
+                    printf("%s: %d\n", INGREDIENT_NAMES[i], RECIPES[recipeChoice].ingredients[i]);
+                    shoppingList[i] += RECIPES[recipeChoice].ingredients[i];
+                    numIngredients += RECIPES[recipeChoice].ingredients[i];
                 }
             }
             break;
@@ -48,13 +48,13 @@ int main() {
 
             if (choice == 'y') {
                 for (int i = 0; i < NUM_INGREDIENTS; i++) {
-                    if (RECIPES[recipe_choice].ingredients[i] > 0) {
+                    if (RECIPES[recipeChoice].ingredients[i] > 0) {
                         printf("%s: ", INGREDIENT_NAMES[i]);
-                        int have_ingredient = 0;
-                        scanf("%d", &have_ingredient);
-                        if (have_ingredient > 0) {
-                            shopping_list[i] -= have_ingredient;
-                            num_ingredients -= have_ingredient;
+                        int haveIngredient = 0;
+                        scanf("%d", &haveIngredient);
+                        if (haveIngredient > 0) {
+                            shoppingList[i] -= haveIngredient;
+                            numIngredients -= haveIngredient;
                         }
                     }
                 }
@@ -64,19 +64,19 @@ int main() {
         } else if (choice == 'y') {
             // Generate a new random number until it corresponds to an unsuggested recipe
             do {
-                recipe_choice = rand() % NUM_RECIPES;
-            } while (suggested_recipes[recipe_choice] == 1);
+                recipeChoice = rand() % NUM_RECIPES;
+            } while (suggestedRecipes[recipeChoice] == 1);
 
-            suggested_recipes[recipe_choice] = 1;
-            num_suggested++;
+            suggestedRecipes[recipeChoice] = 1;
+            numSuggested++;
 
-            printf("We suggest trying: %s\n", RECIPES[recipe_choice].name);
+            printf("We suggest trying: %s\n", RECIPES[recipeChoice].name);
             printf("Ingredients:\n");
             for (int i = 0; i < NUM_INGREDIENTS; i++) {
-                if (RECIPES[recipe_choice].ingredients[i] > 0) {
-                    printf("%s: %d\n", INGREDIENT_NAMES[i], RECIPES[recipe_choice].ingredients[i]);
-                    shopping_list[i] += RECIPES[recipe_choice].ingredients[i];
-                    num_ingredients += RECIPES[recipe_choice].ingredients[i];
+                if (RECIPES[recipeChoice].ingredients[i] > 0) {
+                    printf("%s: %d\n", INGREDIENT_NAMES[i], RECIPES[recipeChoice].ingredients[i]);
+                    shoppingList[i] += RECIPES[recipeChoice].ingredients[i];
+                    numIngredients += RECIPES[recipeChoice].ingredients[i];
                 }
             }
 
@@ -86,27 +86,27 @@ int main() {
 
             if (choice == 'y') {
                 for (int i = 0; i < NUM_INGREDIENTS; i++) {
-                    if (RECIPES[recipe_choice].ingredients[i] > 0) {
+                    if (RECIPES[recipeChoice].ingredients[i] > 0) {
                         printf("%s: ", INGREDIENT_NAMES[i]);
-                        int have_ingredient = 0;
-                        scanf("%d", &have_ingredient);
-                        if (have_ingredient > 0) {
-                            shopping_list[i] -= have_ingredient;
-                            num_ingredients -= have_ingredient;
+                        int haveIngredient = 0;
+                        scanf("%d", &haveIngredient);
+                        if (haveIngredient > 0) {
+                            shoppingList[i] -= haveIngredient;
+                            numIngredients -= haveIngredient;
                         }
                     }
                 }
             }
 
             printf("Your updated shopping list:\n");
-            print_shopping_list(shopping_list, num_ingredients);
+            printShoppingList(shoppingList, numIngredients);
 
-            // If all recipes have been suggested, reset the suggested_recipes array
-            if (num_suggested == NUM_RECIPES) {
+            // If all recipes have been suggested, reset the suggestedRecipes array
+            if (numSuggested == NUM_RECIPES) {
                 for (int i = 0; i < NUM_RECIPES; i++) {
-                    suggested_recipes[i] = 0;
+                    suggestedRecipes[i] = 0;
                 }
-                num_suggested = 0;
+                numSuggested = 0;
             }
         } else {
             printf("Invalid choice. Please try again.\n");
