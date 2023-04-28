@@ -1,16 +1,16 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -std=c18
+CFLAGS = -Wall -Wextra -std=c18 
 
-default: PlatePal
+default: Main
 
-PlatePal: PlatePal.o Recipes.o
-	$(CC) $(CFLAGS) -o PlatePal PlatePal.o Recipes.o -lm
+Main: Main.o Platepal.o
+	$(CC) $(CFLAGS) -o Main Main.o Platepal.o -lm -lmysqlclient
 
-PlatePal.o: PlatePal.c Recipes.h
-	$(CC) $(CFLAGS) -c PlatePal.c
+Main.o: Main.c Platepal.h
+	$(CC) $(CFLAGS) -c Main.c
 
-Recipes.o: Recipes.c Recipes.h
-	$(CC) $(CFLAGS) -c Recipes.c
+Platepal.o: Platepal.c Platepal.h
+	$(CC) $(CFLAGS) -c Platepal.c
 
 clean:
-	$(RM) PlatePal *.o *~
+	$(RM) Main *.o *~
